@@ -1,0 +1,30 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-content>
+      <form
+        class="form"
+        [formGroup]="questionForm"
+        (ngSubmit)="onSubmit()">
+        <label id="radio-group-label">{{ question.text }}</label>
+        <mat-form-field class="open">
+          <textarea
+            matInput
+            class="textarea"
+            formControlName="answer"
+            placeholder="Type your answer here ..."></textarea>
+          <mat-error
+            *ngIf="questionForm.controls['answer'].hasError('required')">
+            Text is required
+          </mat-error>
+          <mat-error
+            *ngIf="questionForm.controls['answer'].hasError('maxlength')">
+            Max length is 255 symbols
+          </mat-error>
+        </mat-form-field>
+        <app-question-controls
+          *ngIf="questionForm.valid || questionForm.disabled"
+          [question]="question"></app-question-controls>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

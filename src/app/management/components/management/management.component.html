@@ -1,0 +1,14 @@
+<div class="upper">
+  <button
+    mat-flat-button
+    class="new"
+    color="accent"
+    (click)="onNew()">
+    Create new
+  </button>
+</div>
+<div class="main">
+  <app-question
+    *ngFor="let item of data | async"
+    [question]="item"></app-question>
+</div>

@@ -1,0 +1,20 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.wrapper {
+  margin: 10px auto;
+}
+.submit {
+  width: 200px;
+  margin: 0 auto;
+}
+::ng-deep
+  .mat-mdc-checkbox
+  .mdc-checkbox
+  .mdc-checkbox__native-control[disabled]:checked
+  ~ .mdc-checkbox__background {
+  opacity: 0.7 !important;
+  background-color: #bd1e51 !important;
+}

@@ -1,0 +1,19 @@
+<div class="wrapper">
+  <button
+    mat-flat-button
+    *ngIf="!question.answered"
+    class="submit"
+    type="submit"
+    color="accent">
+    Save
+  </button>
+  <button
+    mat-flat-button
+    *ngIf="question.answered"
+    class="submit"
+    type="button"
+    color="accent"
+    (click)="onRevert()">
+    Revert
+  </button>
+</div>
