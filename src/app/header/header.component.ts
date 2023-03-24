@@ -15,14 +15,16 @@ export class HeaderComponent extends UnSubscriberComponent implements OnInit {
   constructor(private router: Router) {
     super();
   }
+
   ngOnInit(): void {
     this.router.events.pipe(takeUntil(this.destroyed$)).subscribe((events) => {
       if (events instanceof NavigationEnd) {
         const url = events.url.split('/')[1];
-        this.title = HEADER_TITLES[url as keyof typeof HEADER_TITLES];
+        this.title = HEADER_TITLES.get(url) as string;
       }
     });
   }
+
   onBack(): void {
     this.router.navigate(['/']);
   }

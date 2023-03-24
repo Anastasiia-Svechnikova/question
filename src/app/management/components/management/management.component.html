@@ -9,6 +9,6 @@
 </div>
 <div class="main">
   <app-question
-    *ngFor="let item of data | async"
+    *ngFor="let item of questions$ | async"
     [question]="item"></app-question>
 </div>

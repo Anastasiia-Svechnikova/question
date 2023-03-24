@@ -1,25 +1,46 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Question } from 'src/app/shared/models/models';
+import { IQuestion } from 'src/app/shared/models/models';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
+import { Store } from '@ngrx/store';
+import { questionsActions } from 'src/app/shared/store/actions';
+import { filter, takeUntil } from 'rxjs';
+import { UnSubscriberComponent } from 'src/app/shared/classes/unsubscriber';
 
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
   styleUrls: ['./question.component.css'],
 })
-export class QuestionComponent {
-  constructor(private router: Router, public dialog: MatDialog) {}
-  @Input() question!: Question;
+export class QuestionComponent extends UnSubscriberComponent {
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private store: Store,
+  ) {
+    super();
+  }
+  @Input() question!: IQuestion;
+
   onEdit(id: string): void {
     this.router.navigate([`/edit/${id}`]);
   }
+
   openDialog(): void {
-    this.dialog.open(DeleteModalComponent, {
-      data: {
-        id: this.question.id,
-      },
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+      data: { question: this.question.text },
     });
+    dialogRef
+      .afterClosed()
+      .pipe(
+        takeUntil(this.destroyed$),
+        filter((result) => result),
+      )
+      .subscribe(() => {
+        this.store.dispatch(
+          questionsActions.deleteQuestion({ id: this.question.id }),
+        );
+      });
   }
 }

@@ -1,0 +1,68 @@
+<div class="wrapper">
+  <mat-card>
+    <mat-card-content>
+      <form
+        class="form"
+        [formGroup]="questionForm"
+        (ngSubmit)="onSubmit()">
+        <div *ngIf="type === questionTypes.open">
+          <label
+            class="label"
+            id="radio-group-label"
+            >{{ question.text }}</label
+          >
+          <mat-form-field class="open">
+            <textarea
+              matInput
+              class="textarea"
+              formControlName="answer"
+              placeholder="Type your answer here ..."></textarea>
+            <mat-error
+              *ngIf="questionForm.controls['answer'].hasError('required')">
+              Text is required
+            </mat-error>
+            <mat-error
+              *ngIf="questionForm.controls['answer'].hasError('maxlength')">
+              Max length is 255 symbols
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div *ngIf="type === questionTypes.single">
+          <label
+            class="label"
+            id="radio-group-label"
+            >{{ question.text }}</label
+          >
+          <mat-radio-group
+            formControlName="answer"
+            aria-labelledby="radio-group-label"
+            aria-label="Select an option">
+            <mat-radio-button
+              *ngFor="let item of question.options"
+              [name]="item"
+              [value]="item">
+              {{ item | titlecase }}
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <div *ngIf="type === questionTypes.multiple">
+          <label class="label">{{ question.text }}</label>
+          <div>
+            <mat-checkbox
+              *ngFor="let item of question.options"
+              [formControlName]="item">
+              {{ item | titlecase }}</mat-checkbox
+            >
+            <mat-error
+              *ngIf="questionForm.hasError('required') && questionForm.dirty">
+              At least one option is required
+            </mat-error>
+          </div>
+        </div>
+        <app-question-controls
+          *ngIf="questionForm.valid || questionForm.disabled"
+          [question]="question"></app-question-controls>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

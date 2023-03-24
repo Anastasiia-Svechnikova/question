@@ -14,5 +14,6 @@ import {
 export class ListsComponent {
   answeredQuestions$ = this.store.select(selectAnsweredQuestions);
   notAnsweredQuestions$ = this.store.select(selectNotAnsweredQuestions);
+
   constructor(private store: Store) {}
 }

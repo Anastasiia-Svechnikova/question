@@ -37,24 +37,29 @@ export class CreateOptionsControlComponent
   constructor(private fb: FormBuilder) {
     super();
   }
+
   get options(): FormArray<FormControl> {
     return this.form.get('options') as FormArray;
   }
+
   onAddOption(): void {
     this.options.push(this.fb.control('', Validators.required));
   }
+
   onDeleteOption(index: number): void {
     this.options.removeAt(index);
   }
 
   writeValue(value: string[]): void {
-    const options = value.map((option: string) => {
+    const options = value.length ? value : ['', ''];
+    const formOptions = options.map((option: string) => {
       return this.fb.control(option, Validators.required);
     });
     this.form = this.fb.group({
-      options: this.fb.array(options),
+      options: this.fb.array(formOptions),
     });
   }
+
   registerOnChange(fn: <T>(arg: T) => object): void {
     this.form.valueChanges
       .pipe(takeUntil(this.destroyed$), debounceTime(INPUT_DEBOUNCE_TIME))
@@ -66,6 +71,7 @@ export class CreateOptionsControlComponent
         }
       });
   }
+
   registerOnTouched(fn: () => object): void {
     this.onTouched = fn;
   }

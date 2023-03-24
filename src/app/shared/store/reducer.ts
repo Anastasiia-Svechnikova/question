@@ -1,10 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
-import { Question } from '../models/models';
+import { IQuestion } from '../models/models';
 import { questionsActions } from './actions';
 
 export interface IQuestionsState {
   loading: boolean;
-  questions: Question[];
+  questions: IQuestion[];
   loadError: Error | null;
 }
 

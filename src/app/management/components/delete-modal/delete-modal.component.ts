@@ -1,11 +1,8 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Store } from '@ngrx/store';
-
-import { questionsActions } from 'src/app/shared/store/actions';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface IData {
-  id: string;
+  question: string;
 }
 
 @Component({
@@ -15,11 +12,11 @@ interface IData {
 })
 export class DeleteModalComponent {
   constructor(
+    public dialogRef: MatDialogRef<DeleteModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IData,
-    private store: Store,
   ) {}
 
-  onDelete(id: string): void {
-    this.store.dispatch(questionsActions.deleteQuestion({ id }));
+  onDelete(): void {
+    this.dialogRef.close(true);
   }
 }

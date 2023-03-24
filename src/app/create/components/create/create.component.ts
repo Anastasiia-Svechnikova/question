@@ -13,11 +13,10 @@ import { Store } from '@ngrx/store';
 import { takeUntil } from 'rxjs';
 
 import { UnSubscriberComponent } from 'src/app/shared/classes/unsubscriber';
-import { IEmptyQuestion, Mode, Question } from 'src/app/shared/models/models';
+import { IEmptyQuestion, Mode, IQuestion } from 'src/app/shared/models/models';
 import { questionsActions } from 'src/app/shared/store/actions';
 import { selectQuestionById } from 'src/app/shared/store/selectors';
 import {
-  EMPTY_OPTIONS,
   MAX_LENGTH_OPEN_QUESTION,
   QUESTION_TYPES,
   QUESTION_WITH_OPTIONS_TYPES,
@@ -34,7 +33,7 @@ export class CreateComponent extends UnSubscriberComponent implements OnInit {
   types = QUESTION_TYPES;
   form!: FormGroup;
   mode = this.router.routerState.snapshot.url.split('/')[1];
-  questionData!: Question | IEmptyQuestion;
+  questionData!: IQuestion | IEmptyQuestion;
   storedQuestion$ = this.store.select(selectQuestionById);
 
   constructor(
@@ -74,13 +73,9 @@ export class CreateComponent extends UnSubscriberComponent implements OnInit {
   }
 
   addOptionsControl(): void {
-    const questionOptions =
-      'options' in this.questionData
-        ? this.questionData.options
-        : EMPTY_OPTIONS;
     this.form.addControl(
       'options',
-      this.fb.control(questionOptions, [
+      this.fb.control(this.questionData.options, [
         Validators.required,
         this.emptyValidator(),
       ]),

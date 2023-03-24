@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
+    pathMatch: 'full',
     loadChildren: () =>
       import('./management/management.module').then((m) => m.ManagementModule),
   },
@@ -25,7 +26,6 @@ const routes: Routes = [
   {
     path: '**',
     redirectTo: '',
-    pathMatch: 'full',
   },
 ];
 

@@ -12,3 +12,8 @@
   justify-content: flex-end;
   gap: 15px;
 }
+
+.question {
+  margin-top: 20px;
+  color: #000000;
+}

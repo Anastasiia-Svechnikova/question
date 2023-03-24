@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Question } from '../models/models';
+import { IQuestion } from '../models/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  getAllQuestions(): Observable<Question[]> {
+  getAllQuestions(): Observable<IQuestion[]> {
     const data = this.getDataFromLocalStorage() || [];
     return of(data);
   }
 
-  addQuestion(question: Question): Observable<Question> {
+  addQuestion(question: IQuestion): Observable<IQuestion> {
     const data = this.getDataFromLocalStorage();
     if (data) {
       this.saveDataToLocalStorage([question, ...data]);
@@ -29,7 +29,7 @@ export class DataService {
     }
     return of(id);
   }
-  revertQuestion(id: string): Observable<Question> {
+  revertQuestion(id: string): Observable<IQuestion> {
     const data = this.getDataFromLocalStorage();
     if (data) {
       const questions = data.map((question) =>
@@ -42,9 +42,9 @@ export class DataService {
     const revertedQuestion = this.getDataFromLocalStorage()?.find(
       (question) => question.id === id,
     );
-    return of(revertedQuestion as Question);
+    return of(revertedQuestion as IQuestion);
   }
-  answerQuestion(question: Question): Observable<Question> {
+  answerQuestion(question: IQuestion): Observable<IQuestion> {
     const data = this.getDataFromLocalStorage();
     if (data) {
       const questions = data.map((localQuestion) =>
@@ -54,7 +54,7 @@ export class DataService {
     }
     return of(question);
   }
-  updateQuestion(question: Question): Observable<Question> {
+  updateQuestion(question: IQuestion): Observable<IQuestion> {
     const data = this.getDataFromLocalStorage();
     if (data) {
       const updatedData = data.map((localQuestion) => {
@@ -69,11 +69,11 @@ export class DataService {
     return of(question);
   }
 
-  private saveDataToLocalStorage(data: Question[]): void {
+  private saveDataToLocalStorage(data: IQuestion[]): void {
     const stringifiedData = JSON.stringify(data);
     localStorage.setItem('questions', stringifiedData);
   }
-  private getDataFromLocalStorage(): Question[] | null {
+  private getDataFromLocalStorage(): IQuestion[] | null {
     const data = localStorage.getItem('questions');
     const parsedData = data && JSON.parse(data);
     return parsedData;

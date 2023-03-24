@@ -11,7 +11,8 @@ import { selectAllQuestions } from 'src/app/shared/store/selectors';
   styleUrls: ['./management.component.css'],
 })
 export class ManagementComponent implements OnInit {
-  data = this.store.select(selectAllQuestions);
+  questions$ = this.store.select(selectAllQuestions);
+
   constructor(private router: Router, private store: Store) {}
 
   ngOnInit(): void {
