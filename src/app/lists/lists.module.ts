@@ -5,10 +5,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { SharedModule } from '../shared/shared.module';
 import { ListsComponent } from './components/lists/lists.component';
-// import { SingleQuestionComponent } from './components/single-question/single-question.component';
-// import { OpenQuestionComponent } from './components/open-question/open-question.component';
-// import { MultipleQuestionComponent } from './components/multiple-question/multiple-question.component';
-import { QuestionControlsComponent } from './components/question-controls/question-controls.component';
 import { QuestionComponent } from './components/question/question.component';
 
 const routes = [
@@ -19,14 +15,7 @@ const routes = [
 ];
 
 @NgModule({
-  declarations: [
-    ListsComponent,
-    // SingleQuestionComponent,
-    // OpenQuestionComponent,
-    // MultipleQuestionComponent,
-    QuestionControlsComponent,
-    QuestionComponent,
-  ],
+  declarations: [ListsComponent, QuestionComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(routes),

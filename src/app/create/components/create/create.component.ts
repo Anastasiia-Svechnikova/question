@@ -14,8 +14,8 @@ import { takeUntil } from 'rxjs';
 
 import { UnSubscriberComponent } from 'src/app/shared/classes/unsubscriber';
 import { IEmptyQuestion, Mode, IQuestion } from 'src/app/shared/models/models';
-import { questionsActions } from 'src/app/shared/store/actions';
-import { selectQuestionById } from 'src/app/shared/store/selectors';
+// import { questionsActions } from 'src/app/shared/store/actions';
+// import { selectQuestionById } from 'src/app/shared/store/selectors';
 import {
   MAX_LENGTH_OPEN_QUESTION,
   QUESTION_TYPES,
@@ -23,6 +23,8 @@ import {
 } from '../../../shared/constants/constants';
 import { generateQuestion } from '../../helpers/generate-question';
 import { updateQuestion } from '../../helpers/update-question';
+import { createActions } from '../../store/actions';
+import { selectQuestionById } from '../../store/selectors';
 
 @Component({
   selector: 'app-create',
@@ -89,10 +91,10 @@ export class CreateComponent extends UnSubscriberComponent implements OnInit {
   onSubmit(): void {
     if (this.mode === Mode.new) {
       const question = generateQuestion(this.form);
-      this.store.dispatch(questionsActions.addQuestion({ question }));
+      this.store.dispatch(createActions.addQuestion({ question }));
     } else {
       const question = updateQuestion(this.form, this.questionData);
-      this.store.dispatch(questionsActions.updateQuestion({ question }));
+      this.store.dispatch(createActions.editQuestion({ question }));
     }
     this.router.navigate(['/']);
   }

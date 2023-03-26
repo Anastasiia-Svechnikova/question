@@ -10,8 +10,6 @@ export const questionsActions = createActionGroup({
     'Loaded Error': props<{ error: Error }>(),
     'Delete question': props<{ id: string }>(),
     'Deleted question': props<{ id: string }>(),
-    'Add question': props<{ question: IQuestion }>(),
-    'Added question': props<{ question: IQuestion }>(),
     'Update question': props<{ question: IQuestion }>(),
     'Updated question': props<{ question: IQuestion }>(),
     'Answer question': props<{ question: IQuestion }>(),

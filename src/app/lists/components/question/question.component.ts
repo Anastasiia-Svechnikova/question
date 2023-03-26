@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import { IQuestion, QuestionTypes } from 'src/app/shared/models/models';
@@ -16,7 +16,7 @@ export class QuestionComponent implements OnInit {
   questionTypes = QuestionTypes;
   questionForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
     this.createForm();
@@ -38,6 +38,12 @@ export class QuestionComponent implements OnInit {
         ? this.generateMultipleAnswer()
         : this.generateSingleAnswer();
     this.store.dispatch(questionsActions.answerQuestion({ question }));
+  }
+
+  onRevert(): void {
+    this.store.dispatch(
+      questionsActions.revertQuestion({ id: this.question.id }),
+    );
   }
 
   get type(): string {

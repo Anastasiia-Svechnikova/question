@@ -1,8 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { getRouterSelectors } from '@ngrx/router-store';
 import { IQuestionsState } from './reducer';
-import { IEmptyQuestion, IQuestion } from '../models/models';
-import { EMPTY_QUESTION } from '../constants/constants';
 
 const selectQuestionsFeature =
   createFeatureSelector<IQuestionsState>('questions');
@@ -12,20 +10,6 @@ export const { selectRouteParams } = getRouterSelectors();
 export const selectAllQuestions = createSelector(
   selectQuestionsFeature,
   (state: IQuestionsState) => state.questions,
-);
-export const selectQuestionById = createSelector(
-  selectAllQuestions,
-  selectRouteParams,
-  (questions, { id }): IQuestion | IEmptyQuestion => {
-    if (id) {
-      const data = questions.filter(
-        (question: IQuestion) => question.id === id,
-      );
-      return data[0];
-    } else {
-      return EMPTY_QUESTION;
-    }
-  },
 );
 export const selectAnsweredQuestions = createSelector(
   selectQuestionsFeature,

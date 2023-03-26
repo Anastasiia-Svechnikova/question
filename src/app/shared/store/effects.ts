@@ -20,19 +20,6 @@ export class QuestionsEffects {
       }),
     );
   });
-  addQuestion$ = createEffect(() => {
-    return this.actions.pipe(
-      ofType(questionsActions.addQuestion),
-      mergeMap(({ question }) => {
-        return this.dataService.addQuestion(question).pipe(
-          map((question) => questionsActions.addedQuestion({ question })),
-          catchError((error) => {
-            return of(questionsActions.loadedError(error));
-          }),
-        );
-      }),
-    );
-  });
   deleteQuestion$ = createEffect(() => {
     return this.actions.pipe(
       ofType(questionsActions.deleteQuestion),

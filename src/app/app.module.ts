@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CustomSerializer } from './shared/store/route-serializer';
 import { reducers } from './shared/store/app-state';
 import { QuestionsEffects } from './shared/store/effects';
+import { CreateAndEditEffects } from './create/store/effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -25,7 +26,7 @@ import { QuestionsEffects } from './shared/store/effects';
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
-    EffectsModule.forRoot([QuestionsEffects]),
+    EffectsModule.forRoot([QuestionsEffects, CreateAndEditEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreRouterConnectingModule.forRoot(),
   ],

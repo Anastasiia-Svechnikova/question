@@ -59,9 +59,23 @@
             </mat-error>
           </div>
         </div>
-        <app-question-controls
-          *ngIf="questionForm.valid || questionForm.disabled"
-          [question]="question"></app-question-controls>
+        <button
+          mat-flat-button
+          *ngIf="!question.answered && questionForm.valid"
+          class="btn"
+          type="submit"
+          color="accent">
+          Save
+        </button>
+        <button
+          mat-flat-button
+          *ngIf="question.answered"
+          class="btn"
+          type="button"
+          color="accent"
+          (click)="onRevert()">
+          Revert
+        </button>
       </form>
     </mat-card-content>
   </mat-card>
