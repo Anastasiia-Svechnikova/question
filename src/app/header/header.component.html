@@ -1,0 +1,19 @@
+<header class="header">
+  <button
+    *ngIf="title !== 'Questions management'"
+    class="back"
+    type="button"
+    aria-label="Add a new hobby"
+    (click)="onBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+  <p class="title">{{ title }}</p>
+
+  <a
+    *ngIf="title === 'Questions management'"
+    routerLink="/lists"
+    routerLinkActive="active"
+    class="link"
+    >Lists</a
+  >
+</header>

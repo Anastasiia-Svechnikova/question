@@ -1,0 +1,12 @@
+<div class="wrapper">
+  <div class="left">
+    <div *ngFor="let item of notAnsweredQuestions$ | async">
+      <app-question [question]="item"></app-question>
+    </div>
+  </div>
+  <div class="right">
+    <div *ngFor="let item of answeredQuestions$ | async">
+      <app-question [question]="item"></app-question>
+    </div>
+  </div>
+</div>

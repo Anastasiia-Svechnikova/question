@@ -1,0 +1,19 @@
+.wrapper {
+  padding: 10px;
+}
+.upper {
+  border-bottom: 1px solid #bd1e51;
+}
+.title {
+  margin-bottom: 0;
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.question {
+  margin-top: 20px;
+  color: #000000;
+}

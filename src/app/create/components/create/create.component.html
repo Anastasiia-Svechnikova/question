@@ -1,0 +1,52 @@
+<div class="wrapper">
+  <form
+    class="form"
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()">
+    <div class="inner">
+      <p class="label">Your question:</p>
+      <mat-form-field class="open">
+        <textarea
+          matInput
+          class="textarea"
+          formControlName="text"
+          placeholder="Type your question here ..."></textarea>
+        <mat-error *ngIf="form.controls['text'].hasError('required')">
+          Text is required
+        </mat-error>
+        <mat-error *ngIf="form.controls['text'].hasError('maxlength')">
+          Max length is 255 symbols
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="inner">
+      <label
+        class="label"
+        id="radio-group-label"
+        >Choose a question type, please:
+      </label>
+      <mat-radio-group
+        formControlName="type"
+        aria-labelledby="radio-group-label"
+        aria-label="Select a question type">
+        <mat-radio-button
+          *ngFor="let item of types"
+          [name]="item"
+          [value]="item">
+          {{ item | titlecase }}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <app-options-control
+      *ngIf="type.value === 'single' || type.value === 'multiple'"
+      formControlName="options"></app-options-control>
+    <button
+      mat-flat-button
+      class="submit"
+      type="submit"
+      color="accent"
+      [disabled]="!form.valid">
+      {{ mode === 'new' ? 'Create' : 'Edit' }}
+    </button>
+  </form>
+</div>

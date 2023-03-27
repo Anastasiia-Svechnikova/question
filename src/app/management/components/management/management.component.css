@@ -1,0 +1,9 @@
+.upper {
+  width: 200px;
+  margin: 30px auto;
+}
+.mat-mdc-unelevated-button:not(:disabled) {
+  display: inline-block;
+  width: 170px;
+  height: 50px;
+}
