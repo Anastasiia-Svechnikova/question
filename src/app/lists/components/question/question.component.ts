@@ -3,8 +3,8 @@ import { FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
 import { IQuestion, QuestionTypes } from 'src/app/shared/models/models';
-import { questionsActions } from 'src/app/shared/store/actions';
 import { FormGenerator } from '../../helpers/form-generator';
+import { listsActions } from '../../store/actions';
 
 @Component({
   selector: 'app-question',
@@ -37,13 +37,11 @@ export class QuestionComponent implements OnInit {
       this.type === QuestionTypes.multiple
         ? this.generateMultipleAnswer()
         : this.generateSingleAnswer();
-    this.store.dispatch(questionsActions.answerQuestion({ question }));
+    this.store.dispatch(listsActions.answerQuestion({ question }));
   }
 
   onRevert(): void {
-    this.store.dispatch(
-      questionsActions.revertQuestion({ id: this.question.id }),
-    );
+    this.store.dispatch(listsActions.revertQuestion({ id: this.question.id }));
   }
 
   get type(): string {

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { questionsActions } from 'src/app/shared/store/actions';
 
+import { listsActions } from '../../store/actions';
 import {
   selectAnsweredQuestions,
   selectNotAnsweredQuestions,
-} from '../../../shared/store/selectors';
+} from '../../store/selectors';
 
 @Component({
   selector: 'app-lists',
@@ -19,6 +19,6 @@ export class ListsComponent implements OnInit {
   constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.store.dispatch(questionsActions.loadQuestions());
+    this.store.dispatch(listsActions.loadQuestions());
   }
 }

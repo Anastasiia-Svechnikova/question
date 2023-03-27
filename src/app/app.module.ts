@@ -11,9 +11,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { CustomSerializer } from './shared/store/route-serializer';
-import { reducers } from './shared/store/app-state';
-import { QuestionsEffects } from './shared/store/effects';
-import { CreateAndEditEffects } from './create/store/effects';
+import { effects, reducers } from './shared/store/app-state';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -26,7 +24,7 @@ import { CreateAndEditEffects } from './create/store/effects';
     StoreRouterConnectingModule.forRoot({
       serializer: CustomSerializer,
     }),
-    EffectsModule.forRoot([QuestionsEffects, CreateAndEditEffects]),
+    EffectsModule.forRoot(effects),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     StoreRouterConnectingModule.forRoot(),
   ],

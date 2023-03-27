@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, mergeMap, of } from 'rxjs';
+
 import { DataService } from 'src/app/shared/service/data-service.service';
 import { createActions } from './actions';
 
@@ -13,7 +14,7 @@ export class CreateAndEditEffects {
         return this.dataService.addQuestion(question).pipe(
           map(() => createActions.addedQuestion()),
           catchError((error) => {
-            return of(createActions.addError(error));
+            return of(createActions.createError(error));
           }),
         );
       }),
@@ -27,7 +28,7 @@ export class CreateAndEditEffects {
         return this.dataService.updateQuestion(question).pipe(
           map(() => createActions.editedQuestion()),
           catchError((error) => {
-            return of(createActions.editError(error));
+            return of(createActions.createError(error));
           }),
         );
       }),

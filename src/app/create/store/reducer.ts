@@ -1,16 +1,15 @@
 import { createReducer, on } from '@ngrx/store';
+
 import { createActions } from './actions';
 
 export interface ICreateState {
   loading: boolean;
-  editError: Error | null;
-  addError: Error | null;
+  error: Error | null;
 }
 
 const initialState: ICreateState = {
   loading: false,
-  addError: null,
-  editError: null,
+  error: null,
 };
 
 export const createAndEditReducer = createReducer(
@@ -18,36 +17,34 @@ export const createAndEditReducer = createReducer(
   on(createActions.addQuestion, (state) => ({
     ...state,
     loading: true,
-    addError: null,
+    error: null,
   })),
+
   on(createActions.addedQuestion, (state) => {
     return {
       ...state,
       loading: false,
-      addError: null,
+      error: null,
     };
   }),
+
   on(createActions.editQuestion, (state) => ({
     ...state,
     loading: true,
-    editError: null,
+    error: null,
   })),
 
   on(createActions.editedQuestion, (state) => {
     return {
       ...state,
       loading: false,
-      editError: null,
+      error: null,
     };
   }),
-  on(createActions.editError, (state, { error }) => ({
+
+  on(createActions.createError, (state, { error }) => ({
     ...state,
     loading: false,
-    editError: error,
-  })),
-  on(createActions.addError, (state, { error }) => ({
-    ...state,
-    loading: false,
-    editError: error,
+    error: error,
   })),
 );

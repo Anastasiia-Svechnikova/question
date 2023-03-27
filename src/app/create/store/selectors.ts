@@ -4,7 +4,7 @@ import { getRouterSelectors } from '@ngrx/router-store';
 import { ICreateState } from './reducer';
 import { EMPTY_QUESTION } from 'src/app/shared/constants/constants';
 import { IEmptyQuestion, IQuestion } from 'src/app/shared/models/models';
-import { selectAllQuestions } from 'src/app/shared/store/selectors';
+import { selectAllQuestions } from 'src/app/management/store/selectors';
 
 const selectCreateFeature = createFeatureSelector<ICreateState>('questions');
 
@@ -29,11 +29,7 @@ export const selectLoading = createSelector(
   selectCreateFeature,
   (state: ICreateState) => state.loading,
 );
-export const selectEditError = createSelector(
+export const selectCreateEditError = createSelector(
   selectCreateFeature,
-  (state: ICreateState) => state.editError,
-);
-export const selectAddError = createSelector(
-  selectCreateFeature,
-  (state: ICreateState) => state.addError,
+  (state: ICreateState) => state.error,
 );

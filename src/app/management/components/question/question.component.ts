@@ -1,12 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { IQuestion } from 'src/app/shared/models/models';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { Store } from '@ngrx/store';
-import { questionsActions } from 'src/app/shared/store/actions';
 import { filter, takeUntil } from 'rxjs';
+
+import { IQuestion } from 'src/app/shared/models/models';
+import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { UnSubscriberComponent } from 'src/app/shared/classes/unsubscriber';
+import { managementActions } from '../../store/actions';
 
 @Component({
   selector: 'app-question',
@@ -39,7 +40,7 @@ export class QuestionComponent extends UnSubscriberComponent {
       )
       .subscribe(() => {
         this.store.dispatch(
-          questionsActions.deleteQuestion({ id: this.question.id }),
+          managementActions.deleteQuestion({ id: this.question.id }),
         );
       });
   }

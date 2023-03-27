@@ -1,88 +1,54 @@
 import { createReducer, on } from '@ngrx/store';
-import { IQuestion } from 'src/app/shared/models/models';
-import { questionsActions } from 'src/app/shared/store/actions';
 
-export interface IQuestionsState {
+import { IQuestion } from 'src/app/shared/models/models';
+import { managementActions } from './actions';
+
+export interface IManagementState {
   loading: boolean;
   questions: IQuestion[];
-  loadError: Error | null;
+  error: Error | null;
 }
 
-const initialState: IQuestionsState = {
+const initialState: IManagementState = {
   loading: false,
   questions: [],
-  loadError: null,
+  error: null,
 };
 
-export const questionsReducer = createReducer(
+export const managementReducer = createReducer(
   initialState,
-  on(questionsActions.loadQuestions, (state) => ({
+  on(managementActions.loadQuestions, (state) => ({
     ...state,
     loading: true,
-    loadError: null,
+    error: null,
   })),
-  on(questionsActions.loadedQuestions, (state, { questions }) => ({
+
+  on(managementActions.loadedQuestions, (state, { questions }) => ({
     ...state,
     loading: false,
     questions: questions,
-    loadError: null,
+    error: null,
   })),
-  on(questionsActions.deleteQuestion, (state) => ({
+
+  on(managementActions.deleteQuestion, (state) => ({
     ...state,
     loading: true,
-    loadError: null,
+    error: null,
   })),
-  on(questionsActions.deletedQuestion, (state, { id }) => {
+
+  on(managementActions.deletedQuestion, (state, { id }) => {
     const questions = state.questions.filter((question) => question.id !== id);
     return {
       ...state,
       loading: false,
       questions: questions,
-      loadError: null,
+      error: null,
     };
   }),
-  on(questionsActions.addQuestion, (state) => ({
-    ...state,
-    loading: true,
-    loadError: null,
-  })),
-  on(questionsActions.addedQuestion, (state) => {
-    return {
-      ...state,
-      loading: false,
-      loadError: null,
-    };
-  }),
-  on(questionsActions.updateQuestion, (state) => ({
-    ...state,
-    loading: true,
-    loadError: null,
-  })),
 
-  on(questionsActions.updatedQuestion, (state, { question }) => {
-    const questions = state.questions.map((stateQuestion) =>
-      stateQuestion.id === question.id ? question : stateQuestion,
-    );
-    return {
-      ...state,
-      loading: false,
-      questions: questions,
-      loadError: null,
-    };
-  }),
-  //   on(questionsActions.answerQuestion, (state) => ({
-  //     ...state,
-  //     loading: true,
-  //     loadError: null,
-  //   })),
-  //   on(questionsActions.revertQuestion, (state) => ({
-  //     ...state,
-  //     loading: true,
-  //     loadError: null,
-  //   })),
-  on(questionsActions.loadedError, (state, { error }) => ({
+  on(managementActions.managementError, (state, { error }) => ({
     ...state,
     loading: false,
-    loadError: error,
+    error: error,
   })),
 );
